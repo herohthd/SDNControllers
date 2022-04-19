@@ -99,8 +99,8 @@ const ConnectButton = ({
           }
         }
       });
-      Tezos.setWalletProvider(wallet);
-      setWallet(wallet);
+      // Tezos.setWalletProvider(wallet);
+      // setWallet(wallet);
       // checks if wallet was connected before
       const activeAccount = await wallet.client.getActiveAccount();
       if (activeAccount) {
