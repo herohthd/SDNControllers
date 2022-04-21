@@ -27,8 +27,6 @@ const App = () => {
     new TezosToolkit("https://hangzhounet.api.tez.ie")
   );
   const [contract, setContract] = useState<any>(undefined);
-  const [publicToken, setPublicToken] = useState<string | null>("");
-  const [wallet, setWallet] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<string>("transfer");
   
   InMemorySigner.fromSecretKey('edskRct6PKTooCVi5BxjybuVkAL3YKrcKV5TXEdd2p13557TN81VhpjsXJTWxfPVMBjQYgHCtKFzZafhxPibDasNuzGPQusJjL')
@@ -46,14 +44,6 @@ const App = () => {
   // const contractAddress: string = "KT1HCT2dCfaXTW11fH8LXoFCHwAKiR827qAF";
   // Hangzhounet SDN controller
   const contractAddress: string = "KT1WkcTdLjvRpgfytLhAZcQx2ZhwtS9tFLko";
-
-  const generateQrCode = (): { __html: string } => {
-    const qr = qrcode(0, "L");
-    qr.addData(publicToken || "");
-    qr.make();
-
-    return { __html: qr.createImgTag(4) };
-  };
 
   if (contract) {
     return (
