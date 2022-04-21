@@ -3,13 +3,10 @@ import { TezosToolkit, WalletContract } from "@taquito/taquito";
 
 interface FetchRootHashProps {
   contract: WalletContract | any;
-  setUserBalance: Dispatch<SetStateAction<any>>;
   Tezos: TezosToolkit;
-  userAddress: string;
-  setStorage: Dispatch<SetStateAction<number>>;
 }
 
-const FetchRootHash = ({ contract, setUserBalance, Tezos, userAddress, setStorage }: FetchRootHashProps) => {
+const FetchRootHash = ({ contract, Tezos}: FetchRootHashProps) => {
   const [loadingUpdate, setLoadingUpdate] = useState<boolean>(false);
   const [controllerId, setControllerId] = useState<string>("");
   const [rootHash, setRootHash] = useState<string>("");
@@ -38,7 +35,7 @@ const FetchRootHash = ({ contract, setUserBalance, Tezos, userAddress, setStorag
   };
 
 
-  if (!contract && !userAddress) return <div>&nbsp;</div>;
+  if (!contract) return <div>&nbsp;</div>;
   return (
     <div className="buttons">
       <div>

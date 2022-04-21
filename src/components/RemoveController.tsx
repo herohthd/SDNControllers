@@ -3,13 +3,10 @@ import { TezosToolkit, WalletContract } from "@taquito/taquito";
 
 interface RemoveControllerProps {
   contract: WalletContract | any;
-  setUserBalance: Dispatch<SetStateAction<any>>;
   Tezos: TezosToolkit;
-  userAddress: string;
-  setStorage: Dispatch<SetStateAction<number>>;
 }
 
-const RemoveController = ({ contract, setUserBalance, Tezos, userAddress, setStorage }: RemoveControllerProps) => {
+const RemoveController = ({ contract, Tezos}: RemoveControllerProps) => {
   const [loadingUpdate, setLoadingUpdate] = useState<boolean>(false);
   const [controllerId, setControllerId] = useState<string>("");
 
@@ -20,7 +17,6 @@ const RemoveController = ({ contract, setUserBalance, Tezos, userAddress, setSto
       const op = await contract.methods.remove_controller(controllerId).send();
       await op.confirmation();
       window.alert(`Operation injected: https://hangzhou.tzstats.com/${op.opHash}`)
-      setUserBalance(await Tezos.tz.getBalance(userAddress));
     } catch (error) {
       console.log(error);
     } finally {
@@ -29,7 +25,7 @@ const RemoveController = ({ contract, setUserBalance, Tezos, userAddress, setSto
   };
 
 
-  if (!contract && !userAddress) return <div>&nbsp;</div>;
+  if (!contract) return <div>&nbsp;</div>;
   return (
     <div className="buttons">
       <div>

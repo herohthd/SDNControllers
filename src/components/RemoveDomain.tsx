@@ -3,13 +3,10 @@ import { TezosToolkit, WalletContract } from "@taquito/taquito";
 
 interface RemoveDomainProps {
   contract: WalletContract | any;
-  setUserBalance: Dispatch<SetStateAction<any>>;
   Tezos: TezosToolkit;
-  userAddress: string;
-  setStorage: Dispatch<SetStateAction<number>>;
 }
 
-const RemoveDomain = ({ contract, setUserBalance, Tezos, userAddress, setStorage }: RemoveDomainProps) => {
+const RemoveDomain = ({ contract, Tezos}: RemoveDomainProps) => {
   const [loadingUpdate, setLoadingUpdate] = useState<boolean>(false);
   const [domainAddress, setDomainAddress] = useState<string>("");
 
@@ -20,7 +17,6 @@ const RemoveDomain = ({ contract, setUserBalance, Tezos, userAddress, setStorage
       const op = await contract.methods.remove_domain(domainAddress).send();
       await op.confirmation();
       window.alert(`Operation injected: https://hangzhou.tzstats.com/${op.opHash}`)
-      setUserBalance(await Tezos.tz.getBalance(userAddress));
     } catch (error) {
       console.log(error);
     } finally {
@@ -29,7 +25,7 @@ const RemoveDomain = ({ contract, setUserBalance, Tezos, userAddress, setStorage
   };
 
 
-  if (!contract && !userAddress) return <div>&nbsp;</div>;
+  if (!contract) return <div>&nbsp;</div>;
   return (
     <div className="buttons">
       <div>

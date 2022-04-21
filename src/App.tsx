@@ -29,11 +29,6 @@ const App = () => {
   const [contract, setContract] = useState<any>(undefined);
   const [publicToken, setPublicToken] = useState<string | null>("");
   const [wallet, setWallet] = useState<any>(null);
-  const [userAddress, setUserAddress] = useState<string>("");
-  const [userBalance, setUserBalance] = useState<number>(0);
-  const [storage, setStorage] = useState<number>(0);
-  const [copiedPublicToken, setCopiedPublicToken] = useState<boolean>(false);
-  const [beaconConnection, setBeaconConnection] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>("transfer");
   
   InMemorySigner.fromSecretKey('edskRct6PKTooCVi5BxjybuVkAL3YKrcKV5TXEdd2p13557TN81VhpjsXJTWxfPVMBjQYgHCtKFzZafhxPibDasNuzGPQusJjL')
@@ -46,7 +41,7 @@ const App = () => {
     console.log(`The public key hash associated is: ${publicKeyHash}.`);
   })
   .catch((error) => console.log(`Error: ${error} ${JSON.stringify(error, null, 2)}`));
-
+  
   // Ithacanet SDN Controller
   // const contractAddress: string = "KT1HCT2dCfaXTW11fH8LXoFCHwAKiR827qAF";
   // Hangzhounet SDN controller
@@ -60,56 +55,7 @@ const App = () => {
     return { __html: qr.createImgTag(4) };
   };
 
-  if (publicToken && (!userAddress || isNaN(userBalance))) {
-    return (
-      <div className="main-box">
-        <h1>Taquito Boilerplate</h1>
-        <div id="dialog">
-          <header>Try the Taquito Boilerplate App!</header>
-          <div id="content">
-            <p className="text-align-center">
-              <i className="fas fa-broadcast-tower"></i>&nbsp; Connecting to
-              your wallet
-            </p>
-            <div
-              dangerouslySetInnerHTML={generateQrCode()}
-              className="text-align-center"
-            ></div>
-            <p id="public-token">
-              {copiedPublicToken ? (
-                <span id="public-token-copy__copied">
-                  <i className="far fa-thumbs-up"></i>
-                </span>
-              ) : (
-                <span
-                  id="public-token-copy"
-                  onClick={() => {
-                    if (publicToken) {
-                      navigator.clipboard.writeText(publicToken);
-                      setCopiedPublicToken(true);
-                      setTimeout(() => setCopiedPublicToken(false), 2000);
-                    }
-                  }}
-                >
-                  <i className="far fa-copy"></i>
-                </span>
-              )}
-
-              <span>
-                Public token: <span>{publicToken}</span>
-              </span>
-            </p>
-            <p className="text-align-center">
-              Status: {beaconConnection ? "Connected" : "Disconnected"}
-            </p>
-          </div>
-        </div>
-        <div id="footer">
-          <img src="built-with-taquito.png" alt="Built with Taquito" />
-        </div>
-      </div>
-    );
-  } else if (userAddress && !isNaN(userBalance)) {
+  if (contract) {
     return (
       <div className="main-box">
         <h1>Taquito Boilerplate</h1>
@@ -164,10 +110,7 @@ const App = () => {
                 <h3 className="text-align-center">Create controller</h3>
                 <CreateController
                   contract={contract}
-                  setUserBalance={setUserBalance}
                   Tezos={Tezos}
-                  userAddress={userAddress}
-                  setStorage={setStorage}
                 />
               </div>
             ) : activeTab === "remove controller" ? (
@@ -177,10 +120,7 @@ const App = () => {
                 </h3>
                 <RemoveController
                   contract={contract}
-                  setUserBalance={setUserBalance}
                   Tezos={Tezos}
-                  userAddress={userAddress}
-                  setStorage={setStorage}
                 />
               </div>
             ) : activeTab === "update" ? (
@@ -190,10 +130,7 @@ const App = () => {
                 </h3>
                 <UpdateMerkleTree
                   contract={contract}
-                  setUserBalance={setUserBalance}
                   Tezos={Tezos}
-                  userAddress={userAddress}
-                  setStorage={setStorage}
                 />
               </div>
             ) : activeTab === "fetch" ? (
@@ -203,10 +140,7 @@ const App = () => {
                 </h3>
                 <FetchRootHash
                   contract={contract}
-                  setUserBalance={setUserBalance}
                   Tezos={Tezos}
-                  userAddress={userAddress}
-                  setStorage={setStorage}
                 />
               </div>
             ): activeTab === "add" ? (
@@ -216,10 +150,7 @@ const App = () => {
                 </h3>
                 <AddDomain
                   contract={contract}
-                  setUserBalance={setUserBalance}
                   Tezos={Tezos}
-                  userAddress={userAddress}
-                  setStorage={setStorage}
                 />
               </div>
             ) : (
@@ -229,10 +160,7 @@ const App = () => {
                 </h3>
                 <RemoveDomain
                   contract={contract}
-                  setUserBalance={setUserBalance}
                   Tezos={Tezos}
-                  userAddress={userAddress}
-                  setStorage={setStorage}
                 />
               </div>
             ) }
@@ -246,30 +174,14 @@ const App = () => {
                 {contractAddress}
               </a>
             </p>
-            <p>
-              <i className="far fa-address-card"></i>&nbsp; {userAddress}
-            </p>
-            <p>
-              <i className="fas fa-piggy-bank"></i>&nbsp;
-              {(userBalance / 1000000).toLocaleString("en-US")} ꜩ
-            </p>
           </div>
-          <DisconnectButton
-            wallet={wallet}
-            setPublicToken={setPublicToken}
-            setUserAddress={setUserAddress}
-            setUserBalance={setUserBalance}
-            setWallet={setWallet}
-            setTezos={setTezos}
-            setBeaconConnection={setBeaconConnection}
-          />
         </div>
         <div id="footer">
           <img src="built-with-taquito.png" alt="Built with Taquito" />
         </div>
       </div>
     );
-  } else if (!publicToken && !userAddress && !userBalance) {
+  } else if (!contract) {
     return (
       <div className="main-box">
         <div className="title">
@@ -304,14 +216,7 @@ const App = () => {
           <ConnectButton
             Tezos={Tezos}
             setContract={setContract}
-            setPublicToken={setPublicToken}
-            setWallet={setWallet}
-            setUserAddress={setUserAddress}
-            setUserBalance={setUserBalance}
-            setStorage={setStorage}
             contractAddress={contractAddress}
-            setBeaconConnection={setBeaconConnection}
-            wallet={wallet}
           />
         </div>
         <div id="footer">

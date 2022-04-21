@@ -3,13 +3,10 @@ import { TezosToolkit, WalletContract } from "@taquito/taquito";
 
 interface UpdateContractProps {
   contract: WalletContract | any;
-  setUserBalance: Dispatch<SetStateAction<any>>;
   Tezos: TezosToolkit;
-  userAddress: string;
-  setStorage: Dispatch<SetStateAction<number>>;
 }
 
-const UpdateContract = ({ contract, setUserBalance, Tezos, userAddress, setStorage }: UpdateContractProps) => {
+const UpdateContract = ({ contract, Tezos }: UpdateContractProps) => {
   const [loadingCreate, setLoadingCreate] = useState<boolean>(false);
   const [domainName, setDomainName] = useState<string>("");
   const [controllerId, setControllerId] = useState<string>("");
@@ -23,7 +20,6 @@ const UpdateContract = ({ contract, setUserBalance, Tezos, userAddress, setStora
       await op.confirmation().then(() => console.log(op.opHash));
       window.alert(`Operation injected: https://hangzhou.tzstats.com/${op.opHash}`)
       const newStorage: any = await contract.storage();
-      setUserBalance(await Tezos.tz.getBalance(userAddress));
     } catch (error) {
       console.log(error);
     } finally {
@@ -32,7 +28,7 @@ const UpdateContract = ({ contract, setUserBalance, Tezos, userAddress, setStora
   };
 
 
-  if (!contract && !userAddress) return <div>&nbsp;</div>;
+  if (!contract) return <div>&nbsp;</div>;
   return (
     <div className="buttons">
       <div>

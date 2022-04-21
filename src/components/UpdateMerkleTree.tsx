@@ -3,13 +3,10 @@ import { TezosToolkit, WalletContract } from "@taquito/taquito";
 
 interface UpdateMerkleTreeProps {
   contract: WalletContract | any;
-  setUserBalance: Dispatch<SetStateAction<any>>;
   Tezos: TezosToolkit;
-  userAddress: string;
-  setStorage: Dispatch<SetStateAction<number>>;
 }
 
-const UpdateMerkleTree = ({ contract, setUserBalance, Tezos, userAddress, setStorage }: UpdateMerkleTreeProps) => {
+const UpdateMerkleTree = ({ contract, Tezos}: UpdateMerkleTreeProps) => {
   const [loadingUpdate, setLoadingUpdate] = useState<boolean>(false);
   const [controllerId, setControllerId] = useState<string>("");
   const [merkleTreeRootHash, setMerkleTreeRootHash] = useState<string>("");
@@ -22,7 +19,6 @@ const UpdateMerkleTree = ({ contract, setUserBalance, Tezos, userAddress, setSto
       await op.confirmation();
       window.alert(`Operation injected: https://hangzhou.tzstats.com/${op.opHash}`)
       const newStorage: any = await contract.storage();
-      setUserBalance(await Tezos.tz.getBalance(userAddress));
     } catch (error) {
       console.log(error);
     } finally {
@@ -31,7 +27,7 @@ const UpdateMerkleTree = ({ contract, setUserBalance, Tezos, userAddress, setSto
   };
 
 
-  if (!contract && !userAddress) return <div>&nbsp;</div>;
+  if (!contract) return <div>&nbsp;</div>;
   return (
     <div className="buttons">
       <div>
