@@ -10,6 +10,7 @@ import RemoveController from "./components/RemoveController";
 import UpdateMerkleTree from "./components/UpdateMerkleTree";
 import AddDomain from "./components/AddDomain";
 import RemoveDomain from "./components/RemoveDomain";
+import FetchRootHash from "./components/FetchRootHash";
 
 
 enum BeaconConnection {
@@ -135,6 +136,13 @@ const App = () => {
             Update Merkle tree root hash
           </div>
           <div
+            id="fetch"
+            className={activeTab === "fetch" ? "active" : ""}
+            onClick={() => setActiveTab("fetch")}
+          >
+            Fetch Merkle tree root hash
+          </div>
+          <div
             id="add"
             className={activeTab === "add" ? "active" : ""}
             onClick={() => setActiveTab("add")}
@@ -188,7 +196,20 @@ const App = () => {
                   setStorage={setStorage}
                 />
               </div>
-            ) : activeTab === "add" ? (
+            ) : activeTab === "fetch" ? (
+              <div id="increment-decrement">
+                <h3 className="text-align-center">
+                  <span>Update merkle tree root hash</span>
+                </h3>
+                <FetchRootHash
+                  contract={contract}
+                  setUserBalance={setUserBalance}
+                  Tezos={Tezos}
+                  userAddress={userAddress}
+                  setStorage={setStorage}
+                />
+              </div>
+            ): activeTab === "add" ? (
               <div id="increment-decrement">
                 <h3 className="text-align-center">
                   <span>Add SDN domain</span>
