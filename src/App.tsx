@@ -126,7 +126,7 @@ const App = () => {
             ) : activeTab === "fetch" ? (
               <div id="increment-decrement">
                 <h3 className="text-align-center">
-                  <span>Update merkle tree root hash</span>
+                  <span>Fetch merkle tree root hash</span>
                 </h3>
                 <FetchRootHash
                   contract={contract}
