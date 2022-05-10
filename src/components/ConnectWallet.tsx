@@ -1,13 +1,13 @@
 import React, { Dispatch, SetStateAction, useState, useEffect } from "react";
 import { TezosToolkit } from "@taquito/taquito";
-import { BeaconWallet } from "@taquito/beacon-wallet";
-import {
-  NetworkType,
-  BeaconEvent,
-  defaultEventCallbacks
-} from "@airgap/beacon-sdk";
-import TransportU2F from "@ledgerhq/hw-transport-u2f";
-import { LedgerSigner } from "@taquito/ledger-signer";
+// import { BeaconWallet } from "@taquito/beacon-wallet";
+// import {
+//   NetworkType,
+//   BeaconEvent,
+//   defaultEventCallbacks
+// } from "@airgap/beacon-sdk";
+// import TransportU2F from "@ledgerhq/hw-transport-u2f";
+// import { LedgerSigner } from "@taquito/ledger-signer";
 
 type ButtonProps = {
   Tezos: TezosToolkit;

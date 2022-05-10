@@ -24,7 +24,7 @@ enum BeaconConnection {
 
 const App = () => {
   const [Tezos, setTezos] = useState<TezosToolkit>(
-    new TezosToolkit("https://hangzhounet.api.tez.ie")
+    new TezosToolkit("https://ithacanet.ecadinfra.com")
   );
   const [contract, setContract] = useState<any>(undefined);
   const [activeTab, setActiveTab] = useState<string>("transfer");
@@ -41,9 +41,9 @@ const App = () => {
   .catch((error) => console.log(`Error: ${error} ${JSON.stringify(error, null, 2)}`));
   
   // Ithacanet SDN Controller
-  // const contractAddress: string = "KT1HCT2dCfaXTW11fH8LXoFCHwAKiR827qAF";
+  const contractAddress: string = "KT1HCT2dCfaXTW11fH8LXoFCHwAKiR827qAF";
   // Hangzhounet SDN controller
-  const contractAddress: string = "KT1WkcTdLjvRpgfytLhAZcQx2ZhwtS9tFLko";
+  // const contractAddress: string = "KT1WkcTdLjvRpgfytLhAZcQx2ZhwtS9tFLko";
 
   if (contract) {
     return (
