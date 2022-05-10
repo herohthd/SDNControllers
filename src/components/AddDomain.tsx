@@ -17,7 +17,7 @@ const AddDomain = ({ contract, Tezos }: AddDomainProps) => {
     try {
       const op = await contract.methods.add_domain(domainAddress,domainName).send();
       await op.confirmation();
-      window.alert(`Operation injected: https://hangzhou.tzstats.com/${op.opHash}`)
+      window.alert(`Operation injected: https://ithaca.tzstats.com/${op.opHash}`)
     } catch (error) {
       console.log(error);
     } finally {

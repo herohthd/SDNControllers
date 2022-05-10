@@ -18,7 +18,7 @@ const UpdateContract = ({ contract, Tezos }: UpdateContractProps) => {
     try {
       const op = await contract.methods.create_controller(controllerId,domainName,merkleTreeRootHash).send();
       await op.confirmation().then(() => console.log(op.opHash));
-      window.alert(`Operation injected: https://hangzhou.tzstats.com/${op.opHash}`)
+      window.alert(`Operation injected: https://ithaca.tzstats.com/${op.opHash}`)
       const newStorage: any = await contract.storage();
     } catch (error) {
       console.log(error);

@@ -17,7 +17,7 @@ const UpdateMerkleTree = ({ contract, Tezos}: UpdateMerkleTreeProps) => {
     try {
       const op = await contract.methods.update_merkle_tree_root_hash(controllerId,merkleTreeRootHash).send();
       await op.confirmation();
-      window.alert(`Operation injected: https://hangzhou.tzstats.com/${op.opHash}`)
+      window.alert(`Operation injected: https://ithaca.tzstats.com/${op.opHash}`)
       const newStorage: any = await contract.storage();
     } catch (error) {
       console.log(error);

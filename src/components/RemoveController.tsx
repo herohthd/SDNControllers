@@ -16,7 +16,7 @@ const RemoveController = ({ contract, Tezos}: RemoveControllerProps) => {
     try {
       const op = await contract.methods.remove_controller(controllerId).send();
       await op.confirmation();
-      window.alert(`Operation injected: https://hangzhou.tzstats.com/${op.opHash}`)
+      window.alert(`Operation injected: https://ithaca.tzstats.com/${op.opHash}`)
     } catch (error) {
       console.log(error);
     } finally {
